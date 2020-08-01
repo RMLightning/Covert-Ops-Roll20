@@ -1,0 +1,356 @@
+
+<h1 class="sheet-title" align="center">Covert Ops Operative Dossier</h1>
+<table class="sheet-nametable">
+   <tr>
+       <td>Character Name:</td>
+       <td><input type="text" name="attr_name" /></td>
+       <td>Origin:</td>
+       <td><input type="text" name="attr_origin" /></td>
+   </tr>
+   </table>
+   <table class="sheet-nametable">
+       <!--This table contains vitals info.  The Max BP field is autocalculated based on STR-->
+   <tr>
+       <td>Rank:</td><td><input type="number" value="1" min="1" max="6" name="attr_rank" /></td>
+       <td>DP:</td><td><input type="number" value="0" min="0" name="attr_dp" /></td>
+       <td>Curr BP:</td><td><input type="number" value="0" min="0" name="attr_bp" /></td>
+       <td>Max BP:</td><td><input type="number" disabled="true" value="round(@{str}/2)" min="0" name="attr_maxbp" /></td>
+       <td>DR:</td><td><input type="number" value="0" min="0" name="attr_dr" /></td>
+       <td>MOV:</td><td><input type="number" value="0" min="0" name="attr_mov" /></td>
+       <td>INIT:</td>
+       <td>
+           <input type="number" value="1" min="0" max="3" name="attr_init" /><button type="roll" name="roll_init" value=
+           "&{template:default} {{name=Initiative}} {{Result=[[@{init}d10k1]]}}"></button>
+       </td>
+   </tr>
+</table>
+<br /><br />
+<div class="sheet-2colrow">
+    <div class="sheet-col">
+        <table>
+            <!--This table contains the four basic Attributes (STR, DEX, LOG, WIL) with roll buttons for each-->
+            <th>
+                <h3>Attributes</h3>
+            </th>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_str" value="&{template:default} {{name=Strength Save}} {{Target=[[@{str}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Strength:
+                </td>
+                <td>
+                    <input type="number" name="attr_str" value="0" min="0" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_dex" value="&{template:default} {{name=Dexterity Save}} {{Target=[[@{dex}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Dexterity:
+                </td>
+                <td>
+                    <input type="number" name="attr_dex" value="0" min="0" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_log" value="&{template:default} {{name=Logic Save}} {{Target=[[@{log}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Logic:
+                </td>
+                <td>
+                     <input type="number" name="attr_log" value="0" min="0" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_wil" value="&{template:default} {{name=Willpower Save}} {{Target=[[@{wil}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Willpower:
+                </td>
+                <td>
+                    <input type="number" name="attr_wil" value="0" min="0" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="sheet-col">
+        <h3>Weapons</h3>
+        <fieldset class="repeating_weapons">
+            <input type="text" name="attr_weapon" />
+            <input type="text" name="attr_weapondescrip" />
+        </fieldset>
+    </div>
+</div>
+<div class="sheet-2colrow">
+    <div class="sheet-col">
+        <br /><br />
+        <table>
+            <!--This table contains all skills, the skill score is autocalculated and there is a rollbutton for each.  The roll is called %<skill> in-engine-->
+            <th><h3>Skills</h3></th>
+            <tr class="sheet-headerrow">
+                <td>Skill Name</td>
+                <td>Base Attribute</td>
+                <td>Score</td>
+                <td>P/S</td>
+                <td>Level</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_academic" value="&{template:default} {{name=Academic Check}} {{Target = [[@{academic_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Academic:
+                </td>
+                <td> 
+                    Logic
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_academic_score" value="(round(@{log}/2) + @{academic_PS} + (@{academic_lvl}*10))"</td>
+                <td>
+                    <input type="number" name="attr_academic_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_academic_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    <label>Researcher</label>
+                      <input type='checkbox'checked>
+                      <label>Scholar</label>
+                      <input type='checkbox'>
+                      <label>Scientist</label>
+                      <input type='checkbox'>
+                      <label>Linguist</label>
+                      <input type='checkbox'>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_detective" value="&{template:default} {{name=Detective Check}} {{Target = [[@{detective_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Detective:
+                </td>
+                <td>
+                    Logic
+                </td>
+                <td><input type="number" disabled="true" name="attr_detective_score" value="round(@{log}/2) + @{detective_PS} + (@{detective_lvl}*10)"</td>
+                <td>
+                    <input type="number" name="attr_detective_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td><input type="number" name="attr_detective_lvl" min = "0" max = "6" value="0" /></td>
+                <td>
+                  <div>
+                    Detect Clues, Interrogation, Shadowing & Trailing, Connections
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_leader" value="&{template:default} {{name=Leader Check}} {{Target = [[@{leader_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Leader:
+                </td>
+                <td>
+                    Willpower
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_leader_score" value="round(@{wil}/2) + @{leader_PS} + (@{leader_lvl}*10)"</td>
+                <td>
+                    <input type="number" name="attr_leader_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_leader_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    [Skilled Use Only] Strategy, Tactics, Bodyguard, Recruit
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_martialartist" value="&{template:default} {{name=martialartist Check}} {{Target = [[@{martialartist_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Martial Arts:
+                </td>
+                <td>
+                    Strength
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_martialartistartist_score" value="round(@{str}/2) + @{martialartist_PS} + (@{martialartist_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_martialartist_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_martialartist_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    Unarmed Combat, Weapon Combat, Dodging Expertise
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_medic" value="&{template:default} {{name=Medic Check}} {{Target = [[@{medic_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Medic:
+                </td>
+                <td>
+                    Logic
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_medic_score" value="round(@{log}/2) + @{medic_PS} + (@{medic_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_medic_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_medic_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    [Skilled Use Only] Diagnose, Treat, Field Medic, Surgery
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_pilot" value="&{template:default} {{name=Pilot Check}} {{Target = [[@{pilot_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Pilot:
+                </td>
+                <td>
+                    Dexterity
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_pilot_score" value="round(@{log}/2) + @{pilot_PS} + (@{pilot_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_pilot_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_pilot_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    <label>Land</label>
+                      <input type='checkbox'checked>
+                      <label>Sea</label>
+                      <input type='checkbox'>
+                      <label>Air</label>
+                      <input type='checkbox'>
+                      <label>Space</label>
+                      <input type='checkbox'>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_scout" value="&{template:default} {{name=Scout Check}} {{Target = [[@{scout_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Scout
+                </td>
+                <td>
+                    Logic
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_scout_score" value="round(@{log}/2) + @{scout_PS} + (@{scout_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_scout_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_scout_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    Animal Handling, Navigation, Survival, Tracking
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                 <button type="roll" name="roll_soldier" value="&{template:default} {{name=Soldier Check}} {{Target = [[@{soldier_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Soldier
+                </td>
+                <td>
+                  Dexterity
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_soldier_score" value="round(@{dex}/2) + @{soldier_PS} + (@{soldier_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_soldier_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_soldier_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    Pistols, Rifles, Gunnery, Demolitions
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_technician" value="&{template:default} {{name=Technician Check}} {{Target = [[@{technician_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Technician
+                </td>
+                <td>
+                  Logic
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_technician_score" value="round(@{log}/2) + @{technician_PS} + (@{technician_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_technician_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_technician_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    [Skilled Use Only] Engineering, Repairing, Programming, Set Security
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="roll" name="roll_thief" value="&{template:default} {{name=Thief Check}} {{Target = [[@{thief_score}]]}} {{Roll=[[1d100-1]]}}">
+                    </button>
+                    Thief
+                </td>
+                <td>
+                  Dexterity
+                </td>
+                <td>
+                    <input type="number" disabled="true" name="attr_thief_score" value="round(@{dex}/2) + @{thief_PS} + (@{thief_lvl}*10)" />
+                </td>
+                <td>
+                    <input type="number" name="attr_thief_PS" min="0" max = "20" step = "10" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="attr_thief_lvl" min = "0" max = "6" value="0" />
+                </td>
+                <td>
+                  <div>
+                    Deception, Bypass Security, Sleight of Hand, Stealth
+                  </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="sheet-col">
+        <br /><br />
+        <h3>Inventory</h3>
+        <fieldset class="repeating_inventory">
+            <input type="text" name="attr_itemname" />
+            <input type="text" name="attr_descrip" />
+        </fieldset>
+    </div>
+</div>
